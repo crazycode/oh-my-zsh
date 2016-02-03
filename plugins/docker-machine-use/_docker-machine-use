@@ -1,0 +1,12 @@
+#compdef docker-machine-use
+# helper function for completing available machines
+__machines() {
+  declare -a machines_cmd
+  machines_cmd=($(docker-machine ls|tail -n +2|awk '{print $1":"$3"("$4")"}'))
+  _describe 'machines' machines_cmd
+}
+
+_arguments \
+  '--unset[Unset variables instead of setting them]' \
+  '--swarm[Set the Swarm config instead of the Docker daemon]'
+__machines
